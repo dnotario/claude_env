@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  claude-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: claude-dev-env
+    hostname: claude-dev
+
+    # Keep container running
+    stdin_open: true
+    tty: true
+
+    # Volume mounts for persistence
+    volumes:
+      # Workspace for projects
+      - ./workspace:/workspace
+      # Persist bash history
+      - claude-bash-history:/home/claude/.bash_history_volume
+
+    # Environment variables
+    environment:
+      - TERM=xterm-256color
+      - LANG=en_US.UTF-8
+      - LC_ALL=en_US.UTF-8
+
+    # Resource limits (optional - adjust as needed)
+    # deploy:
+    #   resources:
+    #     limits:
+    #       cpus: '2'
+    #       memory: 4G
+    #     reservations:
+    #       cpus: '1'
+    #       memory: 2G
+
+    # Network configuration
+    networks:
+      - claude-net
+
+networks:
+  claude-net:
+    driver: bridge
+
+volumes:
+  claude-bash-history:
+    driver: local
