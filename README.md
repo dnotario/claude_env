@@ -9,6 +9,7 @@ An isolated Docker container with full development tools for safe experimentatio
 - **Tools**: Git, Vim, Nano, Curl, Wget, and more
 - **Build Tools**: GCC, G++, Make, CMake
 - **Node Tools**: Yarn, TypeScript, ts-node, nodemon
+- **Claude Code**: Pre-installed and ready to use
 - **User**: Non-root user (claude) with sudo access
 - **Workspace**: Persistent volume mounted at `/workspace`
 
@@ -92,6 +93,29 @@ You can enter the container multiple times from different terminals:
 # Terminal 2 (new terminal window)
 ./exec.sh
 ```
+
+### Installing Claude Code
+
+After starting the container, install Claude Code:
+
+```bash
+./install-claude.sh
+```
+
+Then enter the container and use it:
+
+```bash
+# Enter the container
+./exec.sh
+
+# Verify installation
+claude --version
+
+# Start using Claude Code
+claude
+```
+
+You'll need to authenticate with your Anthropic API key the first time you use it.
 
 ## Cleaning Up
 
