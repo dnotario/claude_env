@@ -36,6 +36,8 @@ RUN apt-get update && apt-get install -y \
     net-tools \
     iputils-ping \
     dnsutils \
+    # Locale support
+    locales \
     # Other useful tools
     sudo \
     ca-certificates \
@@ -43,6 +45,12 @@ RUN apt-get update && apt-get install -y \
     lsb-release \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
+
+# Configure locale
+RUN locale-gen en_US.UTF-8 && update-locale LANG=en_US.UTF-8
+ENV LANG=en_US.UTF-8
+ENV LANGUAGE=en_US:en
+ENV LC_ALL=en_US.UTF-8
 
 # Install Node.js (LTS version)
 RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
